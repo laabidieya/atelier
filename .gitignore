@@ -1,0 +1,4 @@
+./venv/
+__pycache__/
+./conference3ia2/db.sqlite3
+./conference3ia2/papers/*
