@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title>Gestion des Conférences</title>
+    </head>
+    <body>
+        <nav >
+            <a href="{% url 'liste_conferences' %}" style="margin-right: 15px;">Home</a>
+            <a href="{% url 'liste_conferences' %}" style="margin-right: 15px;">Conférences</a>
+            <a href="#" style="margin-right: 15px;">Contact</a>
+            
+            {% if user.is_authenticated %}
+                <span style="float: right;">
+                    <span style="margin-right: 15px;">Bonjour, {{ user.username }}</span>
+                    {% if user.role == "comitee" %}
+                        <span >
+                            Membre du Comité
+                        </span>
+                    {% else %}
+                        <span >
+                            Participant
+                        </span>
+                    {% endif %}
+                    <a href="{% url 'logout' %}">Déconnexion</a>
+                </span>
+            {% else %}
+                <span style="float: right;">
+                    <a href="{% url 'login' %}" style="margin-right: 15px;">Connexion</a>
+                    <a href="{% url 'register' %}">Inscription</a>
+                </span>
+            {% endif %}
+        </nav>
+        {% block content %}
+        {% endblock %}
+        <footer>
+            <p>Workshop 25/26 - Django 3ia2</p>
+        </footer>
+    </body>
+</html>

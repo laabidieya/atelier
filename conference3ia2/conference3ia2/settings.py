@@ -57,7 +57,7 @@ ROOT_URLCONF = 'conference3ia2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / "conference3ia2/Templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,8 +119,17 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Media files (Uploaded files)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL="Userapp.User"
+
+# Configuration d'authentification
+LOGIN_URL = '/user/login/'
+LOGIN_REDIRECT_URL = '/conferences/liste/'
+LOGOUT_REDIRECT_URL = '/user/login/'

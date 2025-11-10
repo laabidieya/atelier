@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="mb-4">
+    {% if form.instance.pk %}
+        Modifier une conférence
+    {% else %}
+        Ajouter une conférence
+    {% endif %}
+</h1>
+
+<form method="post" class="form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">
+        {% if form.instance.pk %}
+            Modifier
+        {% else %}
+            Enregistrer
+        {% endif %}
+    </button>
+</form>
+
+<br>
+<a href="{% url 'liste_conferences' %}" class="btn btn-secondary">Retour à la liste</a>
+
+{% endblock %}
+

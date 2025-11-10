@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Liste des soumissions</h1>
+
+{% if submissions %}
+<table border="1" style="width: 100%; border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th style="padding: 10px;">Titre de la soumission</th>
+            <th style="padding: 10px;">Statut</th>
+            <th style="padding: 10px;">Utilisateur (auteur)</th>
+            <th style="padding: 10px;">Conférence associée</th>
+            <th style="padding: 10px;">Date de soumission</th>
+            <th style="padding: 10px;">Paiement</th>
+            <th style="padding: 10px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for submission in submissions %}
+        <tr>
+            <td style="padding: 10px;">{{ submission.title }}</td>
+            <td style="padding: 10px;">
+                {% if submission.status == "submitted" %}
+                    Submitted
+                {% elif submission.status == "under review" %}
+                    Under Review
+                {% elif submission.status == "accepted" %}
+                    Accepted
+                {% elif submission.status == "rejected" %}
+                    Rejected
+                {% else %}
+                    {{ submission.get_status_display }}
+                {% endif %}
+            </td>
+            <td style="padding: 10px;">{{ submission.user.username }}</td>
+            <td style="padding: 10px;">{{ submission.conference.name }}</td>
+            <td style="padding: 10px;">{{ submission.submission_date|date:"d/m/Y" }}</td>
+            <td style="padding: 10px;">
+                {% if submission.payed %}
+                    Payé
+                {% else %}
+                    Non payé
+                {% endif %}
+            </td>
+            <td style="padding: 10px;">
+                <a href="{% url 'submission_details' submission.submission_id %}">Détails</a>
+                {% if submission.status != "accepted" and submission.status != "rejected" %}
+                    | <a href="{% url 'submission_update' submission.submission_id %}">Modifier</a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% else %}
+    <p>Aucune soumission trouvée.</p>
+{% endif %}
+
+<br>
+<a href="{% url 'submission_add' %}">Ajouter une soumission</a>
+
+{% endblock %}
+
