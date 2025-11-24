@@ -73,14 +73,6 @@ class DetailSubmission(LoginRequiredMixin, DetailView):
     def get_queryset(self):
         # S'assurer que l'utilisateur ne peut voir que ses propres soumissions
         return Submission.objects.filter(user=self.request.user).select_related('conference', 'user')
-    
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset)
-        # Vérification supplémentaire de sécurité
-        if obj.user != self.request.user:
-            from django.core.exceptions import PermissionDenied
-            raise PermissionDenied("Vous n'avez pas accès à cette soumission.")
-        return obj
 
 class AddSubmission(LoginRequiredMixin, CreateView):
     model = Submission
@@ -113,13 +105,16 @@ class UpdateSubmission(LoginRequiredMixin, UpdateView):
         return Submission.objects.filter(user=self.request.user).select_related('conference', 'user')
     
     def dispatch(self, request, *args, **kwargs):
-        # Vérifier l'accès et le statut avant de permettre la modification
+        # Vérifier le statut avant de permettre la modification
+        # get_queryset() filtre déjà par user, donc on vérifie seulement le statut ici
         submission_id = kwargs.get('submission_id')
         if submission_id:
+            # Utiliser get_queryset() qui filtre déjà par user
+            queryset = self.get_queryset()
             try:
-                obj = Submission.objects.get(submission_id=submission_id, user=request.user)
+                obj = queryset.get(submission_id=submission_id)
                 # Vérifier que la soumission n'est pas acceptée ou rejetée
-                if obj.status in ['accepted', 'rejected']:
+                if obj.status == 'accepted' or obj.status == 'rejected':
                     from django.contrib import messages
                     messages.error(request, "Une soumission avec l'état accepté ou rejeté ne peut pas être modifiée.")
                     from django.shortcuts import redirect

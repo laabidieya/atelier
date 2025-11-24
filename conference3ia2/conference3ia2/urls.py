@@ -25,6 +25,9 @@ urlpatterns = [
     path("", RedirectView.as_view(url="conferences/liste/")),  
     path('conferences/', include("Conferenceapp.urls")),
     path('user/', include("Userapp.urls")),
+    path('api/', include('sessionAppApi.urls')),
+    path('security/', include('Securityapp.urls')),
+
 ]
 
 # Configuration pour servir les fichiers médias en développement

@@ -3,22 +3,22 @@
 
 <h1>Détails de la soumission</h1>
 
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table border="1">
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Titre</td>
-        <td style="padding: 10px;">{{ submission.title }}</td>
+        <td><strong>Titre</strong></td>
+        <td>{{ submission.title }}</td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Résumé (Abstract)</td>
-        <td style="padding: 10px;">{{ submission.abstract }}</td>
+        <td><strong>Résumé (Abstract)</strong></td>
+        <td>{{ submission.abstract }}</td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Mots-clés</td>
-        <td style="padding: 10px;">{{ submission.keywords }}</td>
+        <td><strong>Mots-clés</strong></td>
+        <td>{{ submission.keywords }}</td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Statut</td>
-        <td style="padding: 10px;">
+        <td><strong>Statut</strong></td>
+        <td>
             {% if submission.status == "submitted" %}
                 Submitted
             {% elif submission.status == "under review" %}
@@ -33,20 +33,20 @@
         </td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Conférence associée</td>
-        <td style="padding: 10px;">{{ submission.conference.name }}</td>
+        <td><strong>Conférence associée</strong></td>
+        <td>{{ submission.conference.name }}</td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Auteur</td>
-        <td style="padding: 10px;">{{ submission.user.username }}</td>
+        <td><strong>Auteur</strong></td>
+        <td>{{ submission.user.username }}</td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Date de soumission</td>
-        <td style="padding: 10px;">{{ submission.submission_date|date:"d/m/Y" }}</td>
+        <td><strong>Date de soumission</strong></td>
+        <td>{{ submission.submission_date|date:"d/m/Y" }}</td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Paiement</td>
-        <td style="padding: 10px;">
+        <td><strong>Paiement</strong></td>
+        <td>
             {% if submission.payed %}
                 Payé
             {% else %}
@@ -55,8 +55,8 @@
         </td>
     </tr>
     <tr>
-        <td style="padding: 10px; font-weight: bold;">Fichier PDF</td>
-        <td style="padding: 10px;">
+        <td><strong>Fichier PDF</strong></td>
+        <td>
             {% if submission.paper %}
                 <a href="{{ submission.paper.url }}" download>Télécharger l'article PDF</a>
             {% else %}
@@ -73,4 +73,3 @@
 <a href="{% url 'liste_submissions' %}">Retour à la liste des soumissions</a>
 
 {% endblock %}
-

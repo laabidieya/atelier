@@ -4,23 +4,23 @@
 <h1>Liste des soumissions</h1>
 
 {% if submissions %}
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<table border="1">
     <thead>
         <tr>
-            <th style="padding: 10px;">Titre de la soumission</th>
-            <th style="padding: 10px;">Statut</th>
-            <th style="padding: 10px;">Utilisateur (auteur)</th>
-            <th style="padding: 10px;">Conférence associée</th>
-            <th style="padding: 10px;">Date de soumission</th>
-            <th style="padding: 10px;">Paiement</th>
-            <th style="padding: 10px;">Actions</th>
+            <th>Titre de la soumission</th>
+            <th>Statut</th>
+            <th>Utilisateur (auteur)</th>
+            <th>Conférence associée</th>
+            <th>Date de soumission</th>
+            <th>Paiement</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         {% for submission in submissions %}
         <tr>
-            <td style="padding: 10px;">{{ submission.title }}</td>
-            <td style="padding: 10px;">
+            <td>{{ submission.title }}</td>
+            <td>
                 {% if submission.status == "submitted" %}
                     Submitted
                 {% elif submission.status == "under review" %}
@@ -33,17 +33,17 @@
                     {{ submission.get_status_display }}
                 {% endif %}
             </td>
-            <td style="padding: 10px;">{{ submission.user.username }}</td>
-            <td style="padding: 10px;">{{ submission.conference.name }}</td>
-            <td style="padding: 10px;">{{ submission.submission_date|date:"d/m/Y" }}</td>
-            <td style="padding: 10px;">
+            <td>{{ submission.user.username }}</td>
+            <td>{{ submission.conference.name }}</td>
+            <td>{{ submission.submission_date|date:"d/m/Y" }}</td>
+            <td>
                 {% if submission.payed %}
                     Payé
                 {% else %}
                     Non payé
                 {% endif %}
             </td>
-            <td style="padding: 10px;">
+            <td>
                 <a href="{% url 'submission_details' submission.submission_id %}">Détails</a>
                 {% if submission.status != "accepted" and submission.status != "rejected" %}
                     | <a href="{% url 'submission_update' submission.submission_id %}">Modifier</a>
@@ -61,4 +61,5 @@
 <a href="{% url 'submission_add' %}">Ajouter une soumission</a>
 
 {% endblock %}
+
 
